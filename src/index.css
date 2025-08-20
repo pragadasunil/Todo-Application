@@ -1,0 +1,11 @@
+/* src/index.css */
+
+/* Import Tailwind's core styles */
+@import "tailwindcss";
+
+/*
+  Add a custom variant for dark mode.
+  This allows the `dark:` prefix to work when the `dark` class is on the HTML element.
+  This is the key to manual theme toggling in v4.
+*/
+@custom-variant dark (&:where(.dark, .dark *));
