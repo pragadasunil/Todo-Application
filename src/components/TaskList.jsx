@@ -13,9 +13,9 @@ export default function TaskList({
   onCancelEdit,
 }) {
   return (
-    <ul className="space-y-4">
+    <ul className="space-y-3 sm:space-y-4 w-full px-1 sm:px-0">
       {tasks.map((task) => (
-        <li key={task.id}>
+        <li key={task.id} className="w-full">
           <TaskItem
             task={task}
             onToggle={onToggle}

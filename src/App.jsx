@@ -6,7 +6,6 @@ import Filters from "./components/Filters.jsx";
 import TaskList from "./components/TaskList.jsx";
 import { X } from "lucide-react";
 
-
 // -----------------------------
 // Helpers
 // -----------------------------
@@ -52,13 +51,16 @@ export default function App() {
   }, []);
 
   // Theme (light/dark) persisted
-  const [theme, setTheme] = useLocalStorage(LS_THEME_KEY, (() => {
-    const prefersDark =
-      typeof window !== "undefined" &&
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches;
-    return prefersDark ? "dark" : "light";
-  })());
+  const [theme, setTheme] = useLocalStorage(
+    LS_THEME_KEY,
+    (() => {
+      const prefersDark =
+        typeof window !== "undefined" &&
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+      return prefersDark ? "dark" : "light";
+    })()
+  );
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
@@ -133,7 +135,8 @@ export default function App() {
       {/* Header */}
       <Header theme={theme} onToggleTheme={() => setTheme((t) => (t === "dark" ? "light" : "dark"))} />
 
-      <main className="max-w-xl mx-auto px-4 py-8 sm:py-10 space-y-6">
+      {/* Full-width on mobile, roomy on larger screens */}
+      <main className="w-full max-w-2xl md:max-w-3xl lg:max-w-5xl xl:max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-6 sm:py-10 space-y-6">
         {/* Add Task Form */}
         <AddTaskForm onAdd={addTask} />
 
@@ -149,11 +152,11 @@ export default function App() {
         {/* Task List */}
         <section className="space-y-4">
           {visibleTasks.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-zinc-300 dark:border-zinc-700 p-10 text-center text-zinc-500 dark:text-zinc-400">
-              <p className="inline-flex items-center gap-2 text-lg">
+            <div className="rounded-2xl border border-dashed border-zinc-300 dark:border-zinc-700 p-8 sm:p-10 text-center text-zinc-500 dark:text-zinc-400">
+              <p className="inline-flex items-center gap-2 text-base sm:text-lg">
                 <X className="h-5 w-5" /> No tasks here yet
               </p>
-              <p className="text-sm mt-2">Add a task above to get started!</p>
+              <p className="text-xs sm:text-sm mt-2">Add a task above to get started!</p>
             </div>
           ) : (
             <TaskList
@@ -170,7 +173,7 @@ export default function App() {
         </section>
 
         {/* Footer note */}
-        <p className="text-center text-xs text-zinc-500 dark:text-zinc-500 mt-6">
+        <p className="text-center text-[11px] sm:text-xs text-zinc-500 dark:text-zinc-500 mt-8">
           Design and Developed by Sunil Pragada
         </p>
       </main>
